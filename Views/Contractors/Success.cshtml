@@ -1,0 +1,35 @@
+﻿@*@{
+        ViewBag.Title = "Success";
+    }
+
+    <h2>Success</h2>*@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Success</title>
+</head>
+<body>
+    @*<div>
+            <h2>Registeration Successful!</h2>
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-md-10" style="background-color:green;font-weight:500;text-align:center"> <h2 style="text-align:center;color:snow">You have Registered Successfully</h2></div>
+    </div>
+
+    <div>
+        <center>
+            <h3>Click Here To Login 👇</h3>
+            @Html.ActionLink("Login ", "Login", "Contractors")
+        </center>
+    </div>
+
+</body>
+</html>

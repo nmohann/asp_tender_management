@@ -1,0 +1,90 @@
+﻿@model IEnumerable<TMSCodeFirst.Models.Tender>
+
+@{
+    ViewBag.Title = "AvailableTenders";
+}
+
+<h2>Available Tenders</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderEndDate)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.MinQuote)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsStarted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCompleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsApproved)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinQuoteContractorId)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderId)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Category)*@
+                @Html.DisplayFor(modelItem => item.TenderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderEndDate)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.MinQuote)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsStarted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsCompleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsApproved)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinQuoteContractorId)
+                </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+                @Html.ActionLink("Details", "AvailableTenderDetails", new { id = item.TenderId })
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            </td>
+        </tr>
+    }
+</table>
+

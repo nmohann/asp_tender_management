@@ -1,0 +1,57 @@
+﻿@model TMSCodeFirst.Models.Tender
+
+@{
+    ViewBag.Title = "AvailableTenderDetails";
+}
+
+<h2>AvailableTenderDetails</h2>
+
+<div>
+    <h4>Tender</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenderType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenderType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenderStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenderStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenderEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenderEndDate)
+        </dd>
+
+    </dl>
+</div>
+
+<a href='@Url.Action("AddProfileImage", "TenderApplication")'>
+    <input type='button' value='Apply' />
+</a>
+
+@Html.ActionLink("Back to Availabe Tenders", "AvailableTenders")
+
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TenderId }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>

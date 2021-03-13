@@ -1,0 +1,92 @@
+﻿
+@model IEnumerable<TMSCodeFirst.Models.Tender>
+
+@{
+    ViewBag.Title = "Welcome Admin";
+}
+
+<div style="margin-top:50px">
+    <a href='@Url.Action("AddTender", "Admins")'>
+        <input type='button' value='Add Tender' />
+    </a>
+
+    <a href='@Url.Action("Search", "Admins")'>
+        <input type='button' value='Search Tender' />
+    </a>
+
+    <a href='@Url.Action("Search", "Admins")'>
+        <input type='button' value='Search Contractor' />
+    </a>
+
+    <a href='@Url.Action("ContractorRequests", "JoinedTable")'>
+        <input type='button' value='Approval Requests' />
+    </a>
+
+    <a href='@Url.Action("", "")'>
+        <input type='button' value='Generate Report' />
+    </a>
+
+    <a href='@Url.Action("Login", "Admins")'>
+        <input type='button' value='Sign Out' />
+    </a>
+</div>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<table class="table">
+    <h2>Available Tenders</h2>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderEndDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderId)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Category)*@
+                @Html.DisplayFor(modelItem => item.TenderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderEndDate)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+                @*@Html.ActionLink("Apply", "Apply", new { id = item.TenderId })*@
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            </td>
+        </tr>
+    }
+    </table>
+
+    
+
+
+
+
+
