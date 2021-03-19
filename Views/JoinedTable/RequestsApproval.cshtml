@@ -1,0 +1,127 @@
+﻿
+@model IEnumerable<TMSCodeFirst.Models.JoinedTable>
+
+<div style="margin-top:20px">
+    <a href='@Url.Action("Index", "Admins")'>
+        <input type='button' value='Back to List' />
+    </a>
+</div>
+
+<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+
+<center>
+    <h2> Pending Evaluations</h2>
+    <br />
+    <table id="customers">
+        <tr>
+            <th>
+                Tender Id
+            </th>
+            <th>
+                Contractor Id
+            </th>
+            <th>
+                Tender Name
+            </th>
+            <th>
+                Tender Type
+            </th>
+            <th>
+                Tender Start Date
+            </th>
+            <th>
+                Tender End Date
+            </th>
+            <th>
+                Quotation
+            </th>
+            <th>
+                Document
+            </th>
+            <th>
+                Evaluation Status
+            </th>
+            <th>
+                Approval Status
+            </th>
+            <th>
+                Action
+            </th>
+
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.JoinTender.TenderId
+                </td>
+                <td>
+                    @item.JoinContractor.UserId
+                </td>
+                <td>
+                    @item.JoinTender.TenderName
+                </td>
+                <td>
+                    @item.JoinTender.TenderType
+                </td>
+                <td>
+                    @item.JoinTender.TenderStartDate
+                </td>
+                <td>
+                    @item.JoinTender.TenderEndDate
+                </td>
+                <td>
+                    @item.JoinTenderApplication.Quotation
+                </td>
+                <td>
+                    <img style="border-radius:5%" src="@Url.Content(item.JoinTenderApplication.ImagePath)" width="250" height="250" />
+                </td>
+                <td style="color:forestgreen">
+                    @item.JoinTenderApplication.IsEvaluated
+                </td>
+                <td style="color:forestgreen">
+                    @item.JoinTenderApplication.IsApproved
+                </td>
+                <td>
+                    <a href='@Url.Action("ApproveRequest", "JoinedTable", new { id = item.JoinTenderApplication.Id })'>
+                        <input type='button' value='Approve' />
+                    </a>
+
+                    <a href='@Url.Action("RejectRequest", "JoinedTable", new { id = item.JoinTenderApplication.Id })'>
+                        <input type='button' value='Reject' />
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</center>
+

@@ -6,14 +6,33 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TMSCodeFirst.Models;
+using PagedList;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace TMSCodeFirst.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminsController : Controller
     {
         // GET: Admins
 
         private TMSContext db = new TMSContext();
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public AdminsController()
+        {
+
+        }
+
+        public AdminsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
 
         // GET: Admins
         public ActionResult Index()
@@ -39,86 +58,37 @@ namespace TMSCodeFirst.Controllers
             return View(admin);
         }
 
-        // GET: Admins/Create
-        public ActionResult Create()
+        public ApplicationSignInManager SignInManager
         {
-            return View();
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
         }
 
-        // POST: Admins/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,Password")] Admin admin)
+        public ApplicationUserManager UserManager
         {
-            if (ModelState.IsValid)
+            get
             {
-                db.Admins.Add(admin);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
-
-            return View(admin);
+            private set
+            {
+                _userManager = value;
+            }
         }
 
-        // GET: Admins/Edit/5
-        public ActionResult Edit(string id)
+        private void AddErrors(IdentityResult result)
         {
-            if (id == null)
+            foreach (var error in result.Errors)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ModelState.AddModelError("", error);
             }
-            Admin admin = db.Admins.Find(id);
-            if (admin == null)
-            {
-                return HttpNotFound();
-            }
-            return View(admin);
         }
-
-        // POST: Admins/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserId,Password")] Admin admin)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(admin).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(admin);
-        }
-
-        // GET: Admins/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Admin admin = db.Admins.Find(id);
-            if (admin == null)
-            {
-                return HttpNotFound();
-            }
-            return View(admin);
-        }
-
-        // POST: Admins/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Admin admin = db.Admins.Find(id);
-            db.Admins.Remove(admin);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
 
         //----------------------------------------------------------------------------------
 
@@ -126,29 +96,61 @@ namespace TMSCodeFirst.Controllers
         {
             return View();
         }
-        // GET: Admin
+
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
-        public ActionResult Logins()
-        {
-            return View();
-        }
+
+
         [HttpPost]
-        public ActionResult Logins(Admin r)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(Admin r)
         {
-            var g = db.Admins.Where(a => a.UserId.Equals(r.UserId) &&
-                                              a.Password.Equals(r.Password)).FirstOrDefault();
-            if (g != null)
+            var g = db.Admins.Where(a => a.UserId.Equals(r.UserId)).FirstOrDefault();
+            if (g == null)
             {
-                return RedirectToAction("Home", "Admin");
+                ModelState.AddModelError("", String.Format("User ID not present.", r.UserId));
+                return View(r);
+            }
+
+            var gg = db.Admins.Where(a => a.UserId.Equals(r.UserId) && a.Password.Equals(r.Password)).FirstOrDefault();
+            if (gg != null)
+            {
+                var result = await SignInManager.PasswordSignInAsync(gg.UserId, r.Password, false, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        {
+                            {
+                                Session["SessionUserId"] = r.UserId.ToString();
+                                return RedirectToAction("Index", "Admins");
+                            }
+                        }
+                    case SignInStatus.Failure:
+                        ModelState.AddModelError("", "Password not matching.");
+                        return View(r);
+                    default:
+                        ModelState.AddModelError("", "Password not matching.");
+                        return View(r);
+
+                }
             }
             else
             {
-                return RedirectToAction("AddTender", "Admin");
-
+                ModelState.AddModelError("", "Password not matching.");
+                return View(r);
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "TMSHome");
         }
 
         public ActionResult AddTender()
@@ -164,6 +166,15 @@ namespace TMSCodeFirst.Controllers
             return RedirectToAction("Index");
             //return View();
         }
+
+        public ActionResult AvailableFeedbacks()
+        {
+
+            using (TMSContext db = new TMSContext())
+            {
+                return View(db.Feedbacks.ToList());
+            }
+        }
         //-------------------------------------------------------------------------------------
 
         protected override void Dispose(bool disposing)
@@ -173,6 +184,46 @@ namespace TMSCodeFirst.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private const string XsrfKey = "XsrfId";
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+
+        internal class ChallengeResult : HttpUnauthorizedResult
+        {
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
+            {
+            }
+
+            public ChallengeResult(string provider, string redirectUri, string userId)
+            {
+                LoginProvider = provider;
+                RedirectUri = redirectUri;
+                UserId = userId;
+            }
+
+            public string LoginProvider { get; set; }
+            public string RedirectUri { get; set; }
+            public string UserId { get; set; }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                if (UserId != null)
+                {
+                    properties.Dictionary[XsrfKey] = UserId;
+                }
+                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+            }
         }
     }
 }

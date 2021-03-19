@@ -4,15 +4,14 @@
     ViewBag.Title = "AddProfileImage";
 }
 
-<h2>AddProfileImage</h2>
+<h2>Please fill the following required details</h2>
 
 
-@using (Html.BeginForm("AddProfileImage","TenderApplication", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("AddProfileImage", "TenderApplication", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>TenderApplication</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
@@ -66,14 +65,23 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Apply" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href='@Url.Action("CreateFeedback", "Feedback")'>
+        <input type='button' value='Give Feedback' />
+    </a>
+</div>
+
+<div>
+    <a href='@Url.Action("Index", "Contractors")'>
+        <input type='button' value='Back to List' />
+    </a>
 </div>
 
 @section Scripts {

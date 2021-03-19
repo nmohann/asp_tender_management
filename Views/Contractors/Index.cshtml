@@ -1,92 +1,124 @@
-﻿@model IEnumerable<TMSCodeFirst.Models.Contractor>
+﻿
+@model IEnumerable<TMSCodeFirst.Models.Tender>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Welcome Contractor";
 }
 
-<h2>Index</h2>
+<div style="margin-top:50px">
+    @*<a href='@Url.Action("AddTender", "Admins")'>
+            <input type='button' value='Add Tender' />
+        </a>*@
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+    @*<a href='@Url.Action("Search", "Contractors")'>
+            <input type='button' value='Search Tender' />
+        </a>*@
+
+    <a href='@Url.Action("ContractorHistory", "JoinedTable")'>
+        <input type='button' value='My Contracts' />
+    </a>
+
+    <a href='@Url.Action("Help", "Contractors")'>
+        <input type='button' value='Help' />
+    </a>
+
+    <a href='@Url.Action("TriggerMail", "TechnicalFeedback")'>
+        <input type='button' value='Issue' />
+    </a>
+</div>
+
+<style>
+    .customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .customers td, .customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .customers tr:hover {
+            background-color: #ddd;
+        }
+
+        .customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+
+<table class="customers" id="myElement">
+    <h2>Available Tenders</h2>
+    <thead>
     <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.TenderId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.TenderName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DOB)
+            @Html.DisplayNameFor(model => model.TenderType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gender)
+            @Html.DisplayNameFor(model => model.TenderStartDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.TenderEndDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Contact)
+            Details
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecretQuestion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecretAnswer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th></th>
+        
     </tr>
-
+    </thead>
+    <tbody>
     @foreach (var item in Model)
     {
         <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.TenderId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @*@Html.DisplayFor(modelItem => item.Category)*@
+                @Html.DisplayFor(modelItem => item.TenderName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DOB)
+                @Html.DisplayFor(modelItem => item.TenderType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Gender)
+                @Html.DisplayFor(modelItem => item.TenderStartDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.TenderEndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Contact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecretQuestion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecretAnswer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |*@
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                @Html.ActionLink("Details", "AvailableTenderDetails", new { id = item.TenderId })
             </td>
         </tr>
     }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#myElement").DataTable();
+    });
+    </script>
+    }
+
+
+
+
+
+

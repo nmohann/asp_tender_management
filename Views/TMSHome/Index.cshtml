@@ -18,101 +18,92 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+   <style>
+       .jumbotron {
+           background-color: black;
+           color: white;
+           
+       }
+
+       .logins {
+           transition:1s;
+           border-radius: 5%;
+           margin-top: 100px:
+       }
+
+       .logins:hover {
+           transform: scale(1.2);
+           /*margin-top: 100px;*/
+           z-index: 2;
+       }
+       .clogin {
+           background-color: rebeccapurple;
+           color: white;
+           font-family: sans-serif;
+           text-align: left;
+           /*font-weight: bold;*/
+           font-size: 1rem;
+           
+       }
+
+       .holder {
+           margin-left: 300px;
+       }
+
+       #contractor {
+           font-weight: bold;
+           font-size: 2rem;
+           color:white;
+       }
+
+       body {
+           background-color:burlywood;
+           background-image: url('/ProjectImages/bg image1.jpg'); 
+           /*background-repeat: no-repeat;
+           width:100%;
+           height:900px;*/
+       }
+   </style>
+   
+
 </head>
 <body>
 
-    <div class="jumbotron text-center">
-        <h1>Tender Management System</h1>
-        <p>Apply for the tenders in few steps</p>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4 p-3 my-3 border bg-light text-black">
-                <h3>Contractor</h3>
-                <p>If you are a contractor.Then Login Here...</p>
-                <p>Get in for tenders</p>
-                <a href="/Contractors/Login" class="btn btn-primary" role="button"><h5>Log in</h5></a>
-            </div>
+        <div class="jumbotron text-center">
+            <h1>Tender Management System</h1>
+            <p>Apply for the tenders in few steps</p>
+        </div>
 
-            <div class="col-sm-4 p-3 my-3 bg-secondary text-white">
-                <h3>New User!</h3>
-                <p>
-                    If you are new to this site then Kindly register here...
-                    Kindly note down your user id while registering for future Login!
-                </p>
-                <a href="/Contractors/Create" class="btn btn-danger" role="button"><h5>Register</h5></a>
-            </div>
+        <div class="holder">
+            <div class="row">
+                <div class="col-sm-3 p-3 my-3 border logins clogin">
+                    <h3 id="contractor">Contractor</h3>
+                    <p>If you are a contractor.Then Login Here...</p>
+                    <p>Get in for tenders</p>
+                    <a href="/Contractors/Login" class="btn btn-dark"  role="button"><h5 style="font-weight: bold; color: white">Log in</h5></a>
+                </div>
 
-            <div class="col-sm-4 p-3 my-3 border bg-light text-black">
-                <h3>Admin</h3>
-                <p>If you are an ADMIN.Please LOGIN here...</p>
-                <p>GET IN!..Start posting the tenders! </p>
-                @*<button type="button" class="btn btn-primary"><h5>Log in</h5></button>*@
-                <a href="/Admins/Login" class="btn btn-primary" role="button"><h5>Log in</h5></a>
+                <div class="col-sm-3 p-3 my-3 bg-secondary text-white logins">
+                    <h3>New User!</h3>
+                    <p>
+                        If you are new to this site then Kindly register here...
+                        Kindly note down your user id while registering for future Login!
+                    </p>
+                    <a href="/Contractors/Create" class="btn btn-danger" role="button"><h5>Register</h5></a>
+                </div>
+
+                <div class="col-sm-3 p-3 my-3 border bg-light text-black logins">
+                    <h3>Admin</h3>
+                    <p>If you are an ADMIN.Please LOGIN here...</p>
+                    <p>GET IN!..Start posting the tenders! </p>
+                    @*<button type="button" class="btn btn-primary"><h5>Log in</h5></button>*@
+                    <a href="/Admins/Login" class="btn btn-primary" role="button"><h5>Log in</h5></a>
+                </div>
             </div>
         </div>
-    </div>
 
 </body>
 </html>
 
-
-@*@{
-        ViewBag.Title = "Index";
-    }
-
-    <h2>Index</h2>*@
-
-<!--@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Tenders.com</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body>
-
-    <div class="jumbotron text-center">
-        <h1>Tender Management System</h1>
-        <p>Apply for the tenders in few steps</p>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4 p-3 my-3 border bg-light text-black">
-                <h3>Contractor</h3>
-                <p>If you are a contractor.Then Login Here...</p>
-                <p>Get in for tenders</p>
-                <a href="/Contractors/Login" class="btn btn-primary" role="button"><h5>Log in</h5></a>
-            </div>
-
-            <div class="col-sm-4 p-3 my-3 bg-secondary text-white">
-                <h3>New User!</h3>
-                <p>
-                    If you are new to this site then Kindly register here...
-                    Kindly note down your user id while registering for future Login!
-                </p>
-                <a href="/Contractors/Create" class="btn btn-danger" role="button"><h5>Register</h5></a>
-            </div>
-
-            <div class="col-sm-4 p-3 my-3 border bg-light text-black">
-                <h3>Admin</h3>
-                <p>If you are an ADMIN.Please LOGIN here...</p>
-                <p>GET IN!..Start posting the tenders! </p>-->
-@*<button type="button" class="btn btn-primary"><h5>Log in</h5></button>*@
-<!--<a href="/Admins/Login" class="btn btn-primary" role="button"><h5>Log in</h5></a>
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>-->

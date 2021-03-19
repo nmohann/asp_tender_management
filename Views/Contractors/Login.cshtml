@@ -12,6 +12,7 @@
 
 <!DOCTYPE html>
 
+
 <html>
 <head>
     <title>Tenders.com</title>
@@ -30,6 +31,12 @@
         <div class="jumbotron text-center">
             <h1>Tender Management System</h1>
             <p>Apply for the tenders in few steps</p>
+        </div>
+
+        <div>
+            <strong>
+                @ViewBag.Message
+            </strong>
         </div>
 
         <div class="container w-25 p-3 border bg-light">
@@ -60,7 +67,7 @@
                     <br />
                     <p>
                         Forget UserId? @Html.ActionLink("Click here", "ForgotUsername") <br />
-                        Forget Password @Html.ActionLink("Click here", "ChangePassword")
+                        Forget Password @Html.ActionLink("Click here", "ForgotPassword")
                     </p>
 
                 </div>
@@ -70,4 +77,3 @@
 </body>
 </html>
 
-</table>

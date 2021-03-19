@@ -8,6 +8,7 @@ using TMSCodeFirst.Models;
 
 namespace TMSCodeFirst.Controllers
 {
+    [Authorize]
     public class TenderApplicationController : Controller
     {
         // GET: TenderApplication
@@ -28,7 +29,7 @@ namespace TMSCodeFirst.Controllers
             tenderApplication.CurrentUserId = @Session["SessionUserId"].ToString();
             tenderApplication.CurrentTenderId = Session["SessionTenderId"].ToString();
                 //@Session["SessionTenderId"].ToString();
-            tenderApplication.IsEvaluated = "Not Evaluated";
+            tenderApplication.IsEvaluated = "Pending";
             tenderApplication.IsApproved = "Pending";
             
 

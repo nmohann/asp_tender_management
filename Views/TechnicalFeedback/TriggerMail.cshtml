@@ -1,0 +1,85 @@
+﻿@*@{
+        ViewBag.Title = "TriggerMail";
+    }
+
+    <h2>TriggerMail</h2>*@
+
+@model TMSCodeFirst.Models.TechnicalFeedback
+
+@{ ViewBag.Title = "InputForm"; }
+
+
+<h3>Please let us know.</h3>
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @if (ViewBag.Message != null)
+                    {
+    <div class="form-group">
+        <div class="col-md-10"><mark>@ViewBag.Message</mark></div>
+    </div> } @*<div class="form-group">
+            @Html.LabelFor(model => model.YourContact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.YourContact, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.YourContact, "", new { @class = "text-danger" })
+            </div>
+        </div>*@ @*<div class="form-group">
+                            @Html.LabelFor(model => model.MaildId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.MaildId, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MaildId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DifficultyYouAreFacing, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DifficultyYouAreFacing, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DifficultyYouAreFacing, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Body, new { rows = "15", cols = "25" })
+                            @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Submit Feedback" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>}
+
+<div>
+
+</div>

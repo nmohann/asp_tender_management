@@ -1,0 +1,76 @@
+﻿@model TMSCodeFirst.Models.Feedback
+
+@{
+    ViewBag.Title = "CreateFeedback";
+}
+
+<div style="margin-top:20px">
+    <a href='@Url.Action("Index", "Contractors")'>
+        <input type='button' value='Back to List' />
+    </a>
+</div>
+
+<h2>Please Give Your Valuable Feedback </h2>
+
+@using (Html.BeginForm("CreateFeedback", "Feedback", FormMethod.Post))
+ {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownList("Rating", new List<SelectListItem>
+                {
+                      new SelectListItem{ Text="5", Value = "5", },
+                      new SelectListItem{ Text="4", Value = "4" },
+                      new SelectListItem{ Text="3", Value = "3" },
+                      new SelectListItem{ Text="2", Value = "2" },
+                      new SelectListItem{ Text="1", Value = "1" },
+                })
+                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Like, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Like, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Like, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dislike, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Dislike, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dislike, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    
+</div>
+}
+
+<!--<div>-->
+    @*@Html.ActionLink("Go To MyPage", "Index", "Contractor", new { })*@
+    @*//linkText, actionName, controllerName, routeValues, htmlAttributes*@
+    <!--@Html.ActionLink("Go To MyPage", "Index","Contractor", null, null)
+</div>-->

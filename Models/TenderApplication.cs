@@ -13,7 +13,11 @@ namespace TMSCodeFirst.Models
         public int Id { get; set; }
         public string CurrentTenderId { get; set; }
         public string CurrentUserId { get; set; }
+
+        [Required]
         public double Quotation { get; set; }
+
+        [Required]
         public string ImagePath { get; set; }
         public string IsEvaluated { get; set; }
         public string IsApproved { get; set; }
